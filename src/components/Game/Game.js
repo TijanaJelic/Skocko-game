@@ -33,10 +33,15 @@ const Game = () => {
   const renderPlaceholders = (placeholders) => {
     return (
       <div>
-        {placeholders.map((row, index) => (
-          <div className="placeholders-row" key={index}>
+        {placeholders.map((row, indexRow) => (
+          <div className="placeholders-row" key={indexRow}>
             {row.map((placeholder, index) => (
-              <div className="single-placeholder" key={index}>
+              <div
+                className="single-placeholder"
+                key={index}
+                style={{
+                  backgroundColor: indexRow === currentRow ? '#F0FBFF' : null,
+                }}>
                 {placeholder && (
                   <img
                     src={require('../../assets/' + placeholder + '.png')}
@@ -63,9 +68,9 @@ const Game = () => {
                 style={{
                   backgroundColor:
                     circle === 'red'
-                      ? 'red'
+                      ? '#F8443A'
                       : circle === 'yellow'
-                      ? 'yellow'
+                      ? '#FFC401'
                       : '',
                 }}></div>
             ))}
@@ -166,9 +171,11 @@ const Game = () => {
   return (
     <div>
       <div className="game-box">
-        <div>{renderPlaceholders(placeholders)}</div>
-        <div>{renderCurrentResult()}</div>
-        <div>{renderResult()}</div>
+        <div className="game">
+          <div>{renderPlaceholders(placeholders)}</div>
+          <div>{renderCurrentResult()}</div>
+        </div>
+        <div className="result">{renderResult()}</div>
       </div>
       {gameSymbols()}
       <button
