@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {
   initialCurrentResult,
   initialPlaceholders,
+  initialResult,
 } from '../../constants/gameConstants';
 import { icons } from '../../constants/gameConstants';
 
 const Game = () => {
   const [combination, setCombination] = useState([]);
+  const [result, setResult] = useState(initialResult);
   const [currentRow, setcurrentRow] = useState(0);
   const [placeholders, setPlaceholders] = useState(initialPlaceholders);
   const [currentResult, setCurrentResult] = useState(initialCurrentResult);
@@ -73,6 +75,23 @@ const Game = () => {
     );
   };
 
+  const renderResult = () => {
+    return (
+      <div className="placeholders-row">
+        {result.map((result, index) => (
+          <div className="single-placeholder" key={index}>
+            {result && (
+              <img
+                src={require('../../assets/' + result + '.png')}
+                alt={result}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   const gameSymbols = () => {
     return (
       <div className="game-icons">
@@ -90,11 +109,15 @@ const Game = () => {
 
   const handleAccept = () => {
     if (!(currentRow >= placeholders.length - 1)) {
-      checkIsCorrect(); // dodati if true onda modal, else setcurrentrow
-      setcurrentRow(currentRow + 1);
+      checkIsCorrect();
+      if (currentResult[currentRow].every((item) => item === 'red')) {
+        setResult(combination);
+      } else {
+        setcurrentRow(currentRow + 1);
+      }
     } else {
       checkIsCorrect();
-      console.log('kraj igre');
+      setResult(combination);
     }
   };
 
@@ -111,18 +134,20 @@ const Game = () => {
 
   const checkIsCorrect = () => {
     let checker = [...placeholders[currentRow]];
+
     for (let i = 0; i < placeholders[currentRow].length; i++) {
       if (checker.includes(combination[i])) {
         if (combination[i] === checker[i]) {
           currentResult[currentRow][i] = 'red';
           checker[i] = null;
         } else {
-          currentResult[currentRow][i] = 'yellow';
           const index = checker.indexOf(combination[i]);
+          currentResult[currentRow][i] = 'yellow';
           checker[index] = null;
         }
       }
     }
+
     currentResult[currentRow].sort((a, b) => {
       if (a === null) {
         return 1;
@@ -136,7 +161,6 @@ const Game = () => {
     });
     const changedCurrentResult = [...currentResult];
     setCurrentResult(changedCurrentResult);
-    console.log(currentResult);
   };
 
   return (
