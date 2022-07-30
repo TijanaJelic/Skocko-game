@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import {
+  initialCurrentResult,
+  initialPlaceholders,
+} from '../../constants/gameConstants';
+import { icons } from '../../constants/gameConstants';
 
 const Game = () => {
+  const [combination, setCombination] = useState([]);
   const [currentRow, setcurrentRow] = useState(0);
-  const initialPlaceholders = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-  ];
   const [placeholders, setPlaceholders] = useState(initialPlaceholders);
+  const [currentResult, setCurrentResult] = useState(initialCurrentResult);
 
-  let currentResult = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-  ];
-
-  const icons = [
-    'skocko-skocko',
-    'skocko-tref',
-    'skocko-pik',
-    'skocko-srce',
-    'skocko-karo',
-    'skocko-zvezda',
-  ];
+  useEffect(() => {
+    getCombination();
+    console.log(combination);
+  }, []);
 
   useEffect(() => {
     renderPlaceholders(placeholders);
   }, [placeholders]);
+
+  const getCombination = () => {
+    while (combination.length <= 3) {
+      const randomNum = Math.floor(Math.random() * (icons.length - 1));
+      combination.push(icons[randomNum]);
+    }
+    setCombination(combination);
+  };
 
   const renderPlaceholders = (placeholders) => {
     return (
@@ -61,9 +55,17 @@ const Game = () => {
         {currentResult.map((resultRow, index) => (
           <div className="current-result-row" key={index}>
             {resultRow.map((circle, index) => (
-              <div className="circle" key={index}>
-                {circle}
-              </div>
+              <div
+                className="circle"
+                key={index}
+                style={{
+                  backgroundColor:
+                    circle === 'red'
+                      ? 'red'
+                      : circle === 'yellow'
+                      ? 'yellow'
+                      : '',
+                }}></div>
             ))}
           </div>
         ))}
@@ -87,7 +89,13 @@ const Game = () => {
   };
 
   const handleAccept = () => {
-    console.log('prihvati');
+    if (!(currentRow >= placeholders.length - 1)) {
+      checkIsCorrect(); // dodati if true onda modal, else setcurrentrow
+      setcurrentRow(currentRow + 1);
+    } else {
+      checkIsCorrect();
+      console.log('kraj igre');
+    }
   };
 
   const handleGameSymbol = (e) => {
@@ -101,14 +109,53 @@ const Game = () => {
     setPlaceholders(changedPlaceholders);
   };
 
+  const checkIsCorrect = () => {
+    let checker = [...placeholders[currentRow]];
+    for (let i = 0; i < placeholders[currentRow].length; i++) {
+      if (checker.includes(combination[i])) {
+        if (combination[i] === checker[i]) {
+          currentResult[currentRow][i] = 'red';
+          checker[i] = null;
+        } else {
+          currentResult[currentRow][i] = 'yellow';
+          const index = checker.indexOf(combination[i]);
+          checker[index] = null;
+        }
+      }
+    }
+    currentResult[currentRow].sort((a, b) => {
+      if (a === null) {
+        return 1;
+      } else if (b === null) {
+        return -1;
+      } else if (a === b) {
+        return 0;
+      }
+
+      return a < b ? -1 : 1;
+    });
+    const changedCurrentResult = [...currentResult];
+    setCurrentResult(changedCurrentResult);
+    console.log(currentResult);
+  };
+
   return (
     <div>
       <div className="game-box">
         <div>{renderPlaceholders(placeholders)}</div>
         <div>{renderCurrentResult()}</div>
+        <div>{renderResult()}</div>
       </div>
       {gameSymbols()}
-      <button className="accept-bttn" onClick={handleAccept}>
+      <button
+        className="accept-bttn"
+        disabled={
+          placeholders[currentRow] &&
+          placeholders[currentRow].some((placeholder) => !placeholder)
+            ? true
+            : false
+        }
+        onClick={handleAccept}>
         Accept
       </button>
     </div>
