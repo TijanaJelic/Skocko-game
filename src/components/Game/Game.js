@@ -172,6 +172,13 @@ const Game = () => {
     setCurrentResult(changedCurrentResult);
   };
 
+  const undoMove = () => {
+    const index = placeholders[currentRow].findLastIndex((item) => item);
+    placeholders[currentRow].splice(index, 1, null);
+    const changedPlaceholders = [...placeholders];
+    setPlaceholders(changedPlaceholders);
+  };
+
   const renderer = ({ seconds, completed }) => {
     if (completed) {
       setResult(combination);
@@ -189,7 +196,12 @@ const Game = () => {
           <div>{renderPlaceholders(placeholders)}</div>
           <div>{renderCurrentResult()}</div>
         </div>
-        <div className="result">{renderResult()}</div>
+        <div className="result-and-undo">
+          <div className="result">{renderResult()}</div>
+          <button className="undo" onClick={undoMove}>
+            Undo
+          </button>
+        </div>
       </div>
       {gameSymbols()}
       <button
