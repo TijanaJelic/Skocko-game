@@ -4,6 +4,7 @@ $light-blue: #D2F1FF;
 $middle-blue: #2B79BB;
 $dark-blue: #08254D;
 $gray:#D9D9D9;
+$yellow: #FFFA7F;
 
 @mixin flex-center {
     display: flex;
@@ -32,6 +33,7 @@ img {
 .game-box {
     display: flex;
     flex-direction: column;
+    margin-top: 8px;
 
     .game {
         display: flex;
@@ -86,7 +88,7 @@ img {
 
     .result {
       max-width: 176px;
-      margin-top: 30px;
+      margin-top: 16px;
       margin-bottom: 10px;
     }
 
@@ -122,4 +124,22 @@ img {
     color: #FFF;
     border: none;
     border-radius: 4px;
+
+    &:disabled {
+        opacity: 0.8;
+    }
+}
+
+.countdown {
+    background-color: $yellow;
+    @include flex-center();
+    font-size: 26px;
+    font-family: 'Fredoka One', cursive;
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    padding: 8px;
+    border: 3px solid $dark-blue;
+    border-radius: 50px;
 }

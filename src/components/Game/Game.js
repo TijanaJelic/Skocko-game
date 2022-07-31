@@ -5,11 +5,13 @@ import {
   initialResult,
 } from '../../constants/gameConstants';
 import { icons } from '../../constants/gameConstants';
+import Countdown from 'react-countdown';
 
 const Game = () => {
+  const startDate = React.useRef(Date.now());
   const [combination, setCombination] = useState([]);
-  const [result, setResult] = useState(initialResult);
   const [currentRow, setcurrentRow] = useState(0);
+  const [result, setResult] = useState(initialResult);
   const [placeholders, setPlaceholders] = useState(initialPlaceholders);
   const [currentResult, setCurrentResult] = useState(initialCurrentResult);
 
@@ -127,14 +129,16 @@ const Game = () => {
   };
 
   const handleGameSymbol = (e) => {
-    for (let i = 0; i < placeholders[currentRow].length; i++) {
-      if (!placeholders[currentRow][i]) {
-        placeholders[currentRow][i] = e.target.alt;
-        break;
+    if (result !== combination) {
+      for (let i = 0; i < placeholders[currentRow].length; i++) {
+        if (!placeholders[currentRow][i]) {
+          placeholders[currentRow][i] = e.target.alt;
+          break;
+        }
       }
+      const changedPlaceholders = [...placeholders];
+      setPlaceholders(changedPlaceholders);
     }
-    const changedPlaceholders = [...placeholders];
-    setPlaceholders(changedPlaceholders);
   };
 
   const checkIsCorrect = () => {
@@ -168,9 +172,19 @@ const Game = () => {
     setCurrentResult(changedCurrentResult);
   };
 
+  const renderer = ({ seconds, completed }) => {
+    if (completed) {
+      setResult(combination);
+      return <span className="countdown completed">{seconds}</span>;
+    } else {
+      return <span className="countdown">{seconds}</span>;
+    }
+  };
+
   return (
     <div>
       <div className="game-box">
+        <Countdown date={startDate.current + 60000} renderer={renderer} />
         <div className="game">
           <div>{renderPlaceholders(placeholders)}</div>
           <div>{renderCurrentResult()}</div>
