@@ -142,17 +142,27 @@ const Game = () => {
   };
 
   const checkIsCorrect = () => {
-    let checker = [...placeholders[currentRow]];
+    let checkerComb = [...combination];
+    let checkerGuess = [...placeholders[currentRow]];
 
-    for (let i = 0; i < placeholders[currentRow].length; i++) {
-      if (checker.includes(combination[i])) {
-        if (combination[i] === checker[i]) {
-          currentResult[currentRow][i] = 'red';
-          checker[i] = null;
-        } else {
-          const index = checker.indexOf(combination[i]);
-          currentResult[currentRow][i] = 'yellow';
-          checker[index] = null;
+    for (let i = 0; i < checkerComb.length; i++) {
+      if (checkerComb[i] === checkerGuess[i]) {
+        currentResult[currentRow].splice(i, 1, 'red');
+        checkerComb[i] = null;
+        checkerGuess[i] = null;
+      }
+    }
+
+    for (let i = 0; i < checkerComb.length; i++) {
+      if (checkerComb[i]) {
+        for (let k = 0; k < checkerGuess.length; k++) {
+          if (checkerGuess[k]) {
+            if (checkerComb[i] === checkerGuess[k]) {
+              currentResult[currentRow].splice(k, 1, 'yellow');
+              checkerComb[i] = null;
+              checkerGuess[k] = null;
+            }
+          }
         }
       }
     }
@@ -183,6 +193,8 @@ const Game = () => {
     if (completed) {
       setResult(combination);
       return <span className="countdown completed">{seconds}</span>;
+    } else if (result === combination) {
+      return <span className="countdown">0</span>;
     } else {
       return <span className="countdown">{seconds}</span>;
     }
