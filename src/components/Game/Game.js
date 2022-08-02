@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Modal from '../Modal';
 import {
   initialCurrentResult,
   initialPlaceholders,
@@ -6,6 +7,7 @@ import {
 } from '../../constants/gameConstants';
 import { icons } from '../../constants/gameConstants';
 import Countdown from 'react-countdown';
+import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
   const startDate = React.useRef(Date.now());
@@ -14,6 +16,8 @@ const Game = () => {
   const [result, setResult] = useState(initialResult);
   const [placeholders, setPlaceholders] = useState(initialPlaceholders);
   const [currentResult, setCurrentResult] = useState(initialCurrentResult);
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCombination();
@@ -119,12 +123,18 @@ const Game = () => {
       checkIsCorrect();
       if (currentResult[currentRow].every((item) => item === 'red')) {
         setResult(combination);
+        setTimeout(() => {
+          setShowModal(true);
+        }, 3000);
       } else {
         setcurrentRow(currentRow + 1);
       }
     } else {
       checkIsCorrect();
       setResult(combination);
+      setTimeout(() => {
+        setShowModal(true);
+      }, 3000);
     }
   };
 
@@ -189,11 +199,23 @@ const Game = () => {
     setPlaceholders(changedPlaceholders);
   };
 
+  const playAgain = () => {
+    setShowModal(false);
+    window.location.reload();
+  };
+
+  const backHome = () => {
+    navigate('/');
+    window.location.reload();
+  };
+
   const renderer = ({ seconds, completed }) => {
     if (completed) {
       setResult(combination);
       return <span className="countdown completed">{seconds}</span>;
     } else if (result === combination) {
+      return <span className="countdown">0</span>;
+    } else if (showModal) {
       return <span className="countdown">0</span>;
     } else {
       return <span className="countdown">{seconds}</span>;
@@ -227,6 +249,16 @@ const Game = () => {
         onClick={handleAccept}>
         Accept
       </button>
+      {showModal ? (
+        <Modal>
+          <button className="play-again" onClick={playAgain}>
+            Play Again
+          </button>
+          <button className="back-home" onClick={backHome}>
+            Back Home
+          </button>
+        </Modal>
+      ) : null}
     </div>
   );
 };
