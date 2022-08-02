@@ -24,7 +24,8 @@ html, body, #root {
     font-family: 'Fredoka One', cursive;
 
     .start-game-box {
-        width: 95%;
+        margin: 0 auto;
+        width: 90%;
         max-width: 400px;
         height: 100%;
 
@@ -37,15 +38,24 @@ html, body, #root {
             text-shadow: 2px 2px 0px 0px #00000085;
         }
 
+        .description p:nth-of-type(2){
+            color: $dark-blue;
+            margin-top: 30px;
+        }
+
         p {
             color: #fff;
-            margin: 10px 0 ;
+            margin: 10px 0;
         }
 
         .symbols {
             p {
                 display: flex;
                 align-items: center;
+
+                &:last-child {
+                    margin-bottom: 60px;
+                }
             }
 
             .circle {
@@ -65,7 +75,9 @@ html, body, #root {
         }
 
         .start-game-bttn { 
-            margin: 50px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             width: 135px;
             height: 50px;
             background-color: $light-blue;
@@ -74,11 +86,8 @@ html, body, #root {
             border: none;
             border-radius: 4px;
             box-shadow: 3px -3px 1px 0px #00000040 inset, -3px 3px 2px 0px #FFFFFFE5 inset;
-            padding: 16px 35px;
-            
+            padding: 15px 23px;
         }
     }
-
-
 }
 

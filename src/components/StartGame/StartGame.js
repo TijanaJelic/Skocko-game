@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { icons } from '../../constants/gameConstants';
 
 const StartGame = () => {
   return (
@@ -9,11 +10,20 @@ const StartGame = () => {
         <p>Skocko game is part of the most popular Serbian quiz "Slagalica".</p>
         <p>How to play?</p>
         <p>
-          Guess the given combination of 4 characters in 6 tries with 6
-          characters. Game time is limited to 60 seconds.
+          Guess the combination of 4 symbols in 6 tries. Game time is limited to
+          60 seconds.
         </p>
       </div>
+
       <div className="symbols">
+        <p>You can choose between these 6 symbols:</p>
+        <div className="game-icons">
+          {icons.map((icon, index) => (
+            <div className="icon-box" key={index}>
+              <img src={require('../../assets/' + icon + '.png')} alt={icon} />
+            </div>
+          ))}
+        </div>
         <p>
           <div className="circle red"></div> - symbol is in the right place
         </p>
