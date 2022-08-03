@@ -1,0 +1,22 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.game-icons {
+    max-width: 300px;
+    padding: 2px;
+    background-color: $dark-blue;
+    display: flex;
+    border-radius: 4px;
+
+    .icon-box {
+        @include flex-center();
+        background-color: $light-blue;
+        width: 48px;
+        height: 48px;
+        margin: 3px;
+        border: none;
+        border-radius: 4px;
+        box-shadow: 3px -3px 1px 0px #00000036 inset, -3px 3px 2px 0px #FFFFFFE5 inset;
+
+    }
+}

@@ -1,18 +1,6 @@
+@import '../../style/colors';
+@import '../../style/mixins';
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-
-@mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-$light-blue: #D2F1FF;
-$middle-blue: #2B79BB;
-$dark-blue: #08254D;
-$gray:#D9D9D9;
-$yellow: #FFFA7F;
-$red : #F8443A;
-
 
 html, body, #root {
     width: 100vw;

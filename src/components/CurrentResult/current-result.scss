@@ -1,0 +1,22 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.current-result-row {
+    @include flex-center();
+    justify-content: space-between;
+    background-color: $dark-blue;
+    padding: 24px 10px;
+    width: 122px;
+    height: 67.2px;
+    margin-bottom: 5px;
+    margin-left: 8px;
+    border-radius: 4px;
+
+    .circle {
+        background-color: $gray;;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+    }
+    
+}

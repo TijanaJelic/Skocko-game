@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AcceptButton from '../../components/AcceptButton/AcceptButton';
+import CountdownTimer from '../../components/Countdown/Countdown';
+import CurrentResult from '../../components/CurrentResult/CurrentResult';
+import GameSymbols from '../../components/GameSymbols/GameSymbols';
+import Placeholders from '../../components/Placeholders/Placeholders';
+import Result from '../../components/Result/Result';
 import {
   initialCurrentResult,
   initialPlaceholders,
   initialResult,
 } from '../../constants/gameConstants';
-import Placeholders from '../../components/Placeholders';
-import CurrentResult from '../../components/CurrentResult';
-import Result from '../../components/Result';
-import GameSymbols from '../../components/GameSymbols';
-import CountdownTimer from '../../components/Countdown';
-import AcceptButton from '../../components/AcceptButton';
 import { icons } from '../../constants/gameConstants';
 
 const Game = () => {
@@ -56,7 +56,9 @@ const Game = () => {
     <div>
       <div className="game-box">
         <div className="countdown-and-bttns">
-          <button onClick={backHome}>Back Home</button>
+          <button onClick={backHome} className="back-home-bttn">
+            Back Home
+          </button>
           <CountdownTimer
             result={result}
             setResult={setResult}
@@ -64,7 +66,9 @@ const Game = () => {
             showModal={showModal}
             setshowModal={setShowModal}
           />
-          <button onClick={playAgain}>Play Again</button>
+          <button onClick={playAgain} className="play-again-bttn">
+            Play Again
+          </button>
         </div>
         <div className="game">
           <Placeholders placeholders={placeholders} curRow={currentRow} />

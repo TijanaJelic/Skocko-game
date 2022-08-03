@@ -1,5 +1,6 @@
 import React from 'react';
-import { icons } from '../constants/gameConstants';
+import { icons } from '../../constants/gameConstants';
+import './game-symbols.scss';
 
 const GameSymbols = ({
   result,
@@ -27,7 +28,7 @@ const GameSymbols = ({
           className="icon-box"
           key={index}
           onClick={(e) => handleGameSymbol(e)}>
-          <img src={require('../assets/' + icon + '.png')} alt={icon} />
+          <img src={require('../../assets/' + icon + '.png')} alt={icon} />
         </button>
       ))}
     </div>

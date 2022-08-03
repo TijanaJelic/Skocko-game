@@ -1,5 +1,6 @@
 import React from 'react';
 import Countdown from 'react-countdown';
+import './countdown.scss';
 
 const CountdownTimer = ({
   result,

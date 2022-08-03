@@ -1,5 +1,5 @@
 import React from 'react';
-import '../pages/Game/game.scss';
+import './placeholders.scss';
 
 const Placeholders = ({ placeholders, curRow }) => {
   return (
@@ -15,7 +15,7 @@ const Placeholders = ({ placeholders, curRow }) => {
               }}>
               {placeholder && (
                 <img
-                  src={require('../assets/' + placeholder + '.png')}
+                  src={require('../../assets/' + placeholder + '.png')}
                   alt={placeholder}
                 />
               )}

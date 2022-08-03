@@ -1,4 +1,5 @@
 import React from 'react';
+import './accept-button.scss';
 
 const AcceptButton = ({
   placeholders,
@@ -85,15 +86,3 @@ const AcceptButton = ({
 };
 
 export default AcceptButton;
-
-// <button
-//         className="accept-bttn"
-//         disabled={
-//           placeholders[currentRow] &&
-//           placeholders[currentRow].some((placeholder) => !placeholder)
-//             ? true
-//             : false
-//         }
-//         onClick={handleAccept}>
-//         Accept
-//       </button>

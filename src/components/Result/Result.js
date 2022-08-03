@@ -6,7 +6,10 @@ const Result = ({ result }) => {
       {result.map((result, index) => (
         <div className="single-placeholder" key={index}>
           {result && (
-            <img src={require('../assets/' + result + '.png')} alt={result} />
+            <img
+              src={require('../../assets/' + result + '.png')}
+              alt={result}
+            />
           )}
         </div>
       ))}

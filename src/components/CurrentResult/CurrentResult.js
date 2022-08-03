@@ -1,4 +1,5 @@
 import React from 'react';
+import './current-result.scss';
 
 const CurrentResult = ({ currentResult }) => {
   return (
