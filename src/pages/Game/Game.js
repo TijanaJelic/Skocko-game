@@ -19,12 +19,10 @@ const Game = () => {
   const [result, setResult] = useState(initialResult);
   const [placeholders, setPlaceholders] = useState(initialPlaceholders);
   const [currentResult, setCurrentResult] = useState(initialCurrentResult);
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     getCombination();
-    console.log(combination);
   }, []);
 
   const getCombination = () => {
@@ -43,7 +41,6 @@ const Game = () => {
   };
 
   const playAgain = () => {
-    setShowModal(false);
     window.location.reload();
   };
 
@@ -63,8 +60,6 @@ const Game = () => {
             result={result}
             setResult={setResult}
             combination={combination}
-            showModal={showModal}
-            setshowModal={setShowModal}
           />
           <button onClick={playAgain} className="play-again-bttn">
             Play Again
@@ -95,7 +90,6 @@ const Game = () => {
         currentResult={currentResult}
         setCurrentResult={setCurrentResult}
         setResult={setResult}
-        setShowModal={setShowModal}
         combination={combination}
       />
     </div>

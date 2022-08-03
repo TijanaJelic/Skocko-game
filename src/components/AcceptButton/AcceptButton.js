@@ -8,7 +8,6 @@ const AcceptButton = ({
   currentResult,
   setCurrentResult,
   setResult,
-  setShowModal,
   combination,
 }) => {
   const handleAccept = () => {
@@ -16,18 +15,12 @@ const AcceptButton = ({
       checkIsCorrect();
       if (currentResult[currentRow].every((item) => item === 'red')) {
         setResult(combination);
-        setTimeout(() => {
-          setShowModal(true);
-        }, 3000);
       } else {
         setcurrentRow(currentRow + 1);
       }
     } else {
       checkIsCorrect();
       setResult(combination);
-      setTimeout(() => {
-        setShowModal(true);
-      }, 3000);
     }
   };
 
@@ -70,9 +63,10 @@ const AcceptButton = ({
     });
     setCurrentResult([...currentResult]);
   };
+
   return (
     <button
-      className="accept-bttn"
+      className="accept-btn"
       disabled={
         placeholders[currentRow] &&
         placeholders[currentRow].some((placeholder) => !placeholder)
