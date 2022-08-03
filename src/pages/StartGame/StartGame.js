@@ -25,10 +25,10 @@ const StartGame = () => {
           ))}
         </div>
         <p>
-          <div className="circle red"></div> - symbol is in the right place
+          <span className="circle red"></span> - symbol is in the right place
         </p>
         <p>
-          <div className="circle yellow"></div> - symbol is in the wrong place
+          <span className="circle yellow"></span> - symbol is in the wrong place
         </p>
       </div>
       <Link to={'game'} className="start-game-bttn">
