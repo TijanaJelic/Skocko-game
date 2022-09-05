@@ -1,52 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AcceptButton from '../../components/AcceptButton/AcceptButton';
-import CountdownTimer from '../../components/Countdown/Countdown';
+import Countdown from '../../components/Countdown/Countdown';
 import CurrentResult from '../../components/CurrentResult/CurrentResult';
 import GameSymbols from '../../components/GameSymbols/GameSymbols';
 import Placeholders from '../../components/Placeholders/Placeholders';
 import Result from '../../components/Result/Result';
-import {
-  initialCurrentResult,
-  initialPlaceholders,
-  initialResult,
-} from '../../constants/gameConstants';
 import { icons } from '../../constants/gameConstants';
 
 const Game = () => {
   const [combination, setCombination] = useState([]);
   const [currentRow, setcurrentRow] = useState(0);
-  const [result, setResult] = useState(initialResult);
-  const [placeholders, setPlaceholders] = useState(initialPlaceholders);
-  const [currentResult, setCurrentResult] = useState(initialCurrentResult);
+  const [result, setResult] = useState([]);
+  const [placeholders, setPlaceholders] = useState([]);
+  const [currentResult, setCurrentResult] = useState([]);
+  const [seconds, setSeconds] = useState(60);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setDefaultValues();
     getCombination();
   }, []);
 
+  const setDefaultValues = () => {
+    setCombination([null, null, null, null]);
+    setResult([null, null, null, null]);
+    setPlaceholders([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+    setCurrentResult([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+  };
+
   const getCombination = () => {
-    while (combination.length <= 3) {
+    const newCombination = [];
+    for (let i = 0; i <= 3; i++) {
       const randomNum = Math.floor(Math.random() * (icons.length - 1));
-      combination.push(icons[randomNum]);
+      newCombination.push(icons[randomNum]);
     }
-    setCombination(combination);
+    setCombination(newCombination);
   };
 
   const undoMove = () => {
-    const index = placeholders[currentRow].findLastIndex((item) => item);
-    placeholders[currentRow].splice(index, 1, null);
     const changedPlaceholders = [...placeholders];
+    const index = changedPlaceholders[currentRow].findLastIndex((item) => item);
+    changedPlaceholders[currentRow].splice(index, 1, null);
     setPlaceholders(changedPlaceholders);
   };
 
   const playAgain = () => {
-    window.location.reload();
+    setSeconds(60);
+    setDefaultValues();
+    setcurrentRow(0);
+    getCombination();
   };
 
   const backHome = () => {
     navigate('/');
-    window.location.reload();
   };
 
   return (
@@ -56,10 +77,12 @@ const Game = () => {
           <button onClick={backHome} className="back-home-bttn">
             Back Home
           </button>
-          <CountdownTimer
+          <Countdown
             result={result}
-            setResult={setResult}
             combination={combination}
+            setResult={setResult}
+            seconds={seconds}
+            setSeconds={setSeconds}
           />
           <button onClick={playAgain} className="play-again-bttn">
             Play Again
