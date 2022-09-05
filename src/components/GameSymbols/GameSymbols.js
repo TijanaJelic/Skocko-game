@@ -11,16 +11,17 @@ const GameSymbols = ({
 }) => {
   const handleGameSymbol = (e) => {
     if (result !== combination) {
-      for (let i = 0; i < placeholders[currentRow].length; i++) {
-        if (!placeholders[currentRow][i]) {
-          placeholders[currentRow][i] = e.target.alt;
+      const changedPlaceholders = [...placeholders];
+      for (let i = 0; i < changedPlaceholders[currentRow].length; i++) {
+        if (!changedPlaceholders[currentRow][i]) {
+          changedPlaceholders[currentRow][i] = e.target.alt;
           break;
         }
       }
-      const changedPlaceholders = [...placeholders];
       setPlaceholders(changedPlaceholders);
     }
   };
+
   return (
     <div className="game-icons">
       {icons.map((icon, index) => (
