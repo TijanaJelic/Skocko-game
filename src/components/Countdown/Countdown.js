@@ -1,21 +1,28 @@
 import React from 'react';
-import Countdown from 'react-countdown';
+import { useEffect } from 'react';
 import './countdown.scss';
 
-const CountdownTimer = ({ result, setResult, combination }) => {
-  const startDate = React.useRef(Date.now());
-  const renderer = ({ seconds, completed }) => {
-    if (completed) {
+const Countdown = ({ result, combination, setResult, seconds, setSeconds }) => {
+  useEffect(() => {
+    let timer;
+    if (seconds === 0) {
       setResult(combination);
-      return <span className="countdown completed">{seconds}</span>;
     } else if (result === combination) {
-      return <span className="countdown">0</span>;
-    } else {
-      return <span className="countdown">{seconds}</span>;
+      setSeconds(0);
+    } else if (seconds > 0) {
+      timer = setTimeout(() => {
+        setSeconds((prev) => prev - 1);
+      }, 1000);
     }
-  };
 
-  return <Countdown date={startDate.current + 60000} renderer={renderer} />;
+    return () => clearTimeout(timer);
+  }, [seconds]);
+
+  return (
+    <div className={seconds ? 'countdown' : 'countdown completed'}>
+      {seconds}
+    </div>
+  );
 };
 
-export default CountdownTimer;
+export default Countdown;
