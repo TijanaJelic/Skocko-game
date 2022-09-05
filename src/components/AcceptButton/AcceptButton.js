@@ -28,6 +28,7 @@ const AcceptButton = ({
     let checkerComb = [...combination];
     let checkerGuess = [...placeholders[currentRow]];
 
+    // Checking if the user's combination has symbols in the rigth place
     for (let i = 0; i < checkerComb.length; i++) {
       if (checkerComb[i] === checkerGuess[i]) {
         currentResult[currentRow].splice(i, 1, 'red');
@@ -36,6 +37,7 @@ const AcceptButton = ({
       }
     }
 
+    // Checking if the user's combination has symbols in the wrong place
     for (let i = 0; i < checkerComb.length; i++) {
       if (checkerComb[i]) {
         for (let k = 0; k < checkerGuess.length; k++) {
