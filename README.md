@@ -8,7 +8,7 @@ Live view by clicking the badge: [![Netlify Status](https://api.netlify.com/api/
 https://user-images.githubusercontent.com/49621459/188502402-58614f93-51f9-4a89-ad76-0fcf06540005.mp4
 
 ## Installation
-To run and edit the project, clone the project to your computer, cd into the project directory and follow the instructions below
+To run and edit the project follow the instructions below:
 
 1. Fork the project
 2. Clone the project
