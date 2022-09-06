@@ -8,7 +8,7 @@ The game is inspired by the Serbian national quiz "Slagalica" and the mobile app
 - Each game is limited to 60 seconds, made with a custom React timer
 
 ## Demo
-Live view by clicking the badge: [![Netlify Status](https://api.netlify.com/api/v1/badges/d7168eaa-2eee-44f2-bd34-15dce0bee1f5/deploy-status)](https://app.netlify.com/sites/skocko-game/deploys)
+Live view by clicking the badge: [![Netlify Status](https://api.netlify.com/api/v1/badges/d7168eaa-2eee-44f2-bd34-15dce0bee1f5/deploy-status)](https://skocko-game.netlify.app/)
 
 https://user-images.githubusercontent.com/49621459/188502402-58614f93-51f9-4a89-ad76-0fcf06540005.mp4
 
